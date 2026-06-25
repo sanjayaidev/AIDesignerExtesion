@@ -1,7 +1,7 @@
 {
   "functions": {
     "api/provider-code.js": {
-      "includeFiles": "providers/scripts/**"
+      "includeFiles": "providers/**"
     }
   }
 }
