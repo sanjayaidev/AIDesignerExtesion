@@ -2,11 +2,11 @@
 // Requires Authorization: Bearer <token>. Verifies the user, then returns the
 // JS source for that provider/action so the extension can inject it.
 //
-// Scripts live in /providers/scripts/<provider>-<action>.js as PLAIN .js FILES
-// (not strings) — just drop your migrated files in there, named like:
-//   providers/scripts/deepseek-chat.js
-//   providers/scripts/qwen-chat.js
-//   providers/scripts/gemini-image.js
+// Scripts live in /providers/<provider>/<action>.js as PLAIN .js FILES
+// (not strings) — just drop your migrated files in there, e.g.:
+//   providers/deepseek/chat.js
+//   providers/qwen/chat.js
+//   providers/gemini/image.js
 
 import fs from 'fs';
 import path from 'path';
@@ -54,7 +54,7 @@ export default async function handler(req, res) {
       });
     }
 
-    const filePath = path.join(process.cwd(), 'providers', 'scripts', `${provider}-${action}.js`);
+    const filePath = path.join(process.cwd(), 'providers', provider, `${action}.js`);
     if (!fs.existsSync(filePath)) {
       return res.status(404).json({ error: `No script found for ${provider}/${action}` });
     }
